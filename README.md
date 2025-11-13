@@ -1,36 +1,202 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Glitch Status Animation Demo
+
+A minimal Next.js demo project showcasing a reusable React text glitch animation component. This component provides smooth, eye-catching transitions between status messages with a glitch effect.
+
+## What This Project Does
+
+This project demonstrates a `StatusAnimation` component that:
+- Animates text transitions with a glitch effect using ASCII characters
+- Provides smooth left-to-right character-by-character animation
+- Supports customizable styling via Tailwind CSS classes
+- Can be easily integrated into any React/Next.js project
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 18+ installed
+- npm (comes with Node.js)
+
+### Installation
+
+1. Install dependencies:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Run the development server:
+```bash
+npm run dev
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Open [http://localhost:3000](http://localhost:3000) in your browser to see the demo.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Build for Production
 
-## Learn More
+```bash
+npm run build
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Start Production Server
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm start
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project Structure
 
-## Deploy on Vercel
+```
+glitch-status-demo/
+├── src/
+│   ├── components/
+│   │   └── StatusAnimation.tsx  # The reusable glitch animation component
+│   └── app/
+│       ├── page.tsx             # Demo page showcasing the component
+│       ├── layout.tsx           # Root layout
+│       └── globals.css          # Global styles with Tailwind
+└── README.md                    # This file
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## How to Deploy to Vercel
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. **Push your code to GitHub** (or another Git provider)
+
+2. **Import your repository to Vercel**:
+   - Go to [vercel.com](https://vercel.com)
+   - Click "Add New Project"
+   - Import your Git repository
+   - Vercel will automatically detect Next.js and configure the build settings
+
+3. **Deploy**:
+   - Click "Deploy"
+   - Your project will be built and deployed automatically
+   - You'll get a live URL (e.g., `your-project.vercel.app`)
+
+**Alternative: Deploy via Vercel CLI**
+
+```bash
+# Install Vercel CLI globally
+npm i -g vercel
+
+# Deploy
+vercel
+```
+
+## How to Extract the Component
+
+### Option 1: Copy to Another Project
+
+1. Copy the `src/components/StatusAnimation.tsx` file to your project
+2. Ensure your project has React and TypeScript set up
+3. Import and use the component:
+
+```tsx
+import { StatusAnimation } from './components/StatusAnimation';
+
+function MyComponent() {
+  return (
+    <StatusAnimation
+      currentStatus="Loading..."
+      isAnimating={true}
+      className="text-blue-400"
+      fontSize="text-xl"
+      fontFamily="font-bold"
+    />
+  );
+}
+```
+
+### Option 2: Publish to npm
+
+1. **Create a new npm package**:
+   ```bash
+   mkdir status-animation-component
+   cd status-animation-component
+   npm init -y
+   ```
+
+2. **Set up the package structure**:
+   ```
+   status-animation-component/
+   ├── src/
+   │   └── StatusAnimation.tsx
+   ├── package.json
+   └── README.md
+   ```
+
+3. **Update package.json**:
+   ```json
+   {
+     "name": "status-animation",
+     "version": "1.0.0",
+     "main": "src/StatusAnimation.tsx",
+     "types": "src/StatusAnimation.tsx",
+     "peerDependencies": {
+       "react": "^18.0.0 || ^19.0.0",
+       "react-dom": "^18.0.0 || ^19.0.0"
+     }
+   }
+   ```
+
+4. **Publish to npm**:
+   ```bash
+   npm login
+   npm publish
+   ```
+
+5. **Install in other projects**:
+   ```bash
+   npm install status-animation
+   ```
+
+## Component API
+
+### Props
+
+| Prop | Type | Required | Default | Description |
+|------|------|----------|---------|-------------|
+| `currentStatus` | `string` | Yes | - | The status text to display |
+| `isAnimating` | `boolean` | Yes | - | Triggers animation when status changes |
+| `className` | `string` | No | `""` | Additional CSS classes |
+| `fontSize` | `string` | No | `"text-sm"` | Tailwind font size class |
+| `fontFamily` | `string` | No | `"font-medium"` | Tailwind font weight class |
+
+### Example Usage
+
+```tsx
+import { StatusAnimation } from "@/src/components/StatusAnimation";
+
+function App() {
+  const [status, setStatus] = useState("Initial");
+  const [animating, setAnimating] = useState(false);
+
+  return (
+    <div>
+      <StatusAnimation
+        currentStatus={status}
+        isAnimating={animating}
+        className="text-green-400 font-mono"
+        fontSize="text-2xl"
+        fontFamily="font-bold"
+      />
+      <button onClick={() => {
+        setAnimating(true);
+        setStatus("New Status");
+      }}>
+        Change Status
+      </button>
+    </div>
+  );
+}
+```
+
+## Technologies Used
+
+- **Next.js 16** - React framework
+- **React 19** - UI library
+- **TypeScript** - Type safety
+- **Tailwind CSS 4** - Styling
+
+## License
+
+This project is open source and available under the MIT License.
