@@ -2,7 +2,7 @@
 
 A minimal Next.js demo project showcasing a reusable React text glitch animation component. This component provides smooth, eye-catching transitions between status messages with a glitch effect.
 
-**🔗 [Live Demo on Vercel](https://glitch-status-demo-l41qspz74-antongridzs-projects.vercel.app)**
+**🔗 [Live Demo on Vercel](https://glitch-status-demo.vercel.app)**
 
 ## Getting Started
 
