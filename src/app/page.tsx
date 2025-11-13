@@ -104,6 +104,11 @@ export default function Home() {
             </div>
           </div>
         </div>
+
+        {/* Footer */}
+        <div className="text-center text-muted-foreground text-sm">
+          Made by <a href="https://antongridz.com/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Anton Gridz</a>
+        </div>
       </main>
     </div>
   );

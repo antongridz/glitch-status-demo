@@ -43,3 +43,7 @@ function MyComponent() {
 
 MIT
 
+---
+
+Made by [Anton Gridz](https://antongridz.com/)
+

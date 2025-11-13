@@ -92,3 +92,7 @@ import { StatusAnimation } from 'glitch-status-animation';
 ## License
 
 MIT License
+
+---
+
+Made by [Anton Gridz](https://antongridz.com/)
