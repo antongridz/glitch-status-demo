@@ -4,6 +4,10 @@ A minimal Next.js demo project showcasing a reusable React text glitch animation
 
 **🔗 [Live Demo on Vercel](https://glitch-status-demo.vercel.app)**
 
+## Inspiration
+
+This glitch animation was inspired by [@tomjohndesign](https://x.com/tomjohndesign).
+
 ## Getting Started
 
 ### Prerequisites
