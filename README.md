@@ -57,34 +57,129 @@ glitch-status-demo/
 └── README.md                    # This file
 ```
 
-## How to Deploy to Vercel
+## Publishing to GitHub
 
-1. **Push your code to GitHub** (or another Git provider)
+1. **Create a new repository on GitHub**:
+   - Go to [github.com](https://github.com) and create a new repository
+   - Name it `glitch-status-demo` (or your preferred name)
+   - Don't initialize with README, .gitignore, or license (we already have these)
+
+2. **Push your code to GitHub**:
+   ```bash
+   # Add the remote repository (replace YOUR_USERNAME with your GitHub username)
+   git remote add origin https://github.com/YOUR_USERNAME/glitch-status-demo.git
+   
+   # Push to GitHub
+   git branch -M main
+   git push -u origin main
+   ```
+
+3. **Verify**: Your code should now be visible on GitHub!
+
+## Deploying to Vercel
+
+### Option 1: Deploy via GitHub Integration (Recommended)
+
+1. **Push your code to GitHub** (see above)
 
 2. **Import your repository to Vercel**:
    - Go to [vercel.com](https://vercel.com)
+   - Sign in with your GitHub account
    - Click "Add New Project"
-   - Import your Git repository
+   - Select your `glitch-status-demo` repository
    - Vercel will automatically detect Next.js and configure the build settings
-
-3. **Deploy**:
    - Click "Deploy"
-   - Your project will be built and deployed automatically
-   - You'll get a live URL (e.g., `your-project.vercel.app`)
 
-**Alternative: Deploy via Vercel CLI**
+3. **Your site is live!**:
+   - Vercel will provide you with a live URL (e.g., `glitch-status-demo.vercel.app`)
+   - Every push to your main branch will automatically trigger a new deployment
+
+### Option 2: Deploy via Vercel CLI
 
 ```bash
 # Install Vercel CLI globally
 npm i -g vercel
 
-# Deploy
+# Deploy (from the project root)
+cd glitch-status-demo
 vercel
+
+# Follow the prompts to link your project
 ```
 
-## How to Extract the Component
+## Publishing the Component to npm
 
-### Option 1: Copy to Another Project
+The component is prepared for npm publishing in the `package/` directory.
+
+### Prerequisites
+
+1. **Create an npm account** (if you don't have one):
+   - Go to [npmjs.com](https://www.npmjs.com) and sign up
+
+2. **Login to npm**:
+   ```bash
+   npm login
+   ```
+
+### Publishing Steps
+
+1. **Navigate to the package directory**:
+   ```bash
+   cd package
+   ```
+
+2. **Build the package**:
+   ```bash
+   npm install
+   npm run build
+   ```
+
+3. **Publish to npm**:
+   ```bash
+   npm publish
+   ```
+
+   **Note**: Make sure the package name `glitch-status-animation` is available on npm. If it's taken, update the `name` field in `package/package.json` to something unique.
+
+4. **Verify**: Your package should now be available at `https://www.npmjs.com/package/glitch-status-animation`
+
+### Installing the Published Package
+
+Once published, others can install it with:
+
+```bash
+npm install glitch-status-animation
+```
+
+Then use it in their projects:
+
+```tsx
+import { StatusAnimation } from 'glitch-status-animation';
+
+function MyComponent() {
+  return (
+    <StatusAnimation
+      currentStatus="Loading..."
+      isAnimating={true}
+      className="text-primary"
+      fontSize="text-xl"
+      fontFamily="font-bold"
+    />
+  );
+}
+```
+
+### Updating the Package
+
+When you make changes to the component:
+
+1. Update the version in `package/package.json` (following [semver](https://semver.org/))
+2. Rebuild: `npm run build`
+3. Publish: `npm publish`
+
+## Using the Component Locally
+
+### Option 1: Copy the Component
 
 1. Copy the `src/components/StatusAnimation.tsx` file to your project
 2. Ensure your project has React and TypeScript set up
@@ -98,7 +193,7 @@ function MyComponent() {
     <StatusAnimation
       currentStatus="Loading..."
       isAnimating={true}
-      className="text-blue-400"
+      className="text-primary"
       fontSize="text-xl"
       fontFamily="font-bold"
     />
@@ -106,48 +201,11 @@ function MyComponent() {
 }
 ```
 
-### Option 2: Publish to npm
+### Option 2: Install from npm (after publishing)
 
-1. **Create a new npm package**:
-   ```bash
-   mkdir status-animation-component
-   cd status-animation-component
-   npm init -y
-   ```
-
-2. **Set up the package structure**:
-   ```
-   status-animation-component/
-   ├── src/
-   │   └── StatusAnimation.tsx
-   ├── package.json
-   └── README.md
-   ```
-
-3. **Update package.json**:
-   ```json
-   {
-     "name": "status-animation",
-     "version": "1.0.0",
-     "main": "src/StatusAnimation.tsx",
-     "types": "src/StatusAnimation.tsx",
-     "peerDependencies": {
-       "react": "^18.0.0 || ^19.0.0",
-       "react-dom": "^18.0.0 || ^19.0.0"
-     }
-   }
-   ```
-
-4. **Publish to npm**:
-   ```bash
-   npm login
-   npm publish
-   ```
-
-5. **Install in other projects**:
-   ```bash
-   npm install status-animation
-   ```
+```bash
+npm install glitch-status-animation
+```
 
 ## Component API
 
