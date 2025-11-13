@@ -14,8 +14,13 @@ const PRESET_STATUSES = [
 export default function Home() {
   const [currentStatus, setCurrentStatus] = useState(PRESET_STATUSES[0]);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [animationKey, setAnimationKey] = useState(0);
 
   const handleStatusChange = (newStatus: string) => {
+    // If clicking the same status, force replay by incrementing key
+    if (newStatus === currentStatus) {
+      setAnimationKey(prev => prev + 1);
+    }
     setIsAnimating(true);
     setCurrentStatus(newStatus);
     // Reset animation flag after a delay to allow for next animation
@@ -39,6 +44,7 @@ export default function Home() {
         <div className="flex flex-col items-center justify-center space-y-4 sm:space-y-6 md:space-y-8 py-8 sm:py-12 md:py-16">
           <div className="bg-card rounded-lg p-4 sm:p-6 md:p-8 border border-border min-h-[100px] sm:min-h-[120px] flex items-center justify-center w-full">
             <StatusAnimation
+              key={animationKey}
               currentStatus={currentStatus}
               isAnimating={isAnimating}
               className="text-primary font-mono tracking-wider text-xl sm:text-2xl md:text-3xl"

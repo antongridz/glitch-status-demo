@@ -124,13 +124,13 @@ export function StatusAnimation({
     animate();
   }, [animationInProgress, getRandomAsciiChars]);
 
-  // Trigger animation when status changes
+  // Trigger animation when status changes or when isAnimating is triggered
   useEffect(() => {
-    if (isAnimating && currentStatus && !animationInProgress && displayText !== currentStatus) {
-      // Animate from current display text to new status
+    if (isAnimating && currentStatus && !animationInProgress) {
+      // Always animate when isAnimating is true, even if status is the same (allows replay)
       runStatusAnimation(displayText, currentStatus);
-    } else if (!animationInProgress) {
-      // Just update the display text
+    } else if (!animationInProgress && !isAnimating) {
+      // Just update the display text when not animating
       setDisplayText(currentStatus);
     }
   }, [currentStatus, isAnimating, displayText, runStatusAnimation, animationInProgress]);
